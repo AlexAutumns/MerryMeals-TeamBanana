@@ -1,0 +1,15 @@
+package com.teambanana.mealsonwheels.Enum;
+
+public enum PartnerType {
+    NON_PROFIT,
+    GOVERNMENT,
+    PRIVATE_COMPANY,
+    VOLUNTEER_GROUP,
+    HEALTHCARE_PROVIDER,
+    RETAILER,
+    FOOD_SUPPLIER,
+    TRANSPORTATION,
+    COMMUNITY_ORGANIZATION,
+    EDUCATIONAL_INSTITUTION,
+    OTHER
+}
