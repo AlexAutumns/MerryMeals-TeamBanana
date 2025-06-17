@@ -13,20 +13,33 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // TODO: Add @NotBlank and @Size(min=2) for validation
     private String fullName;
+
+    // TODO: Add @Email and @NotBlank for validation
+    // TODO: Ensure email uniqueness at DB and app level
     private String email;
+
+    // TODO: Add @NotBlank and @Size(min=8) for password validation
+    // TODO: Use @JsonIgnore to hide password from serialization
+    // TODO: Password hashing should be applied during registration/update
     private String password;
+
+    // TODO: Add @Pattern for phone number format validation (optional)
     private String phone;
+
+    // TODO: Add @NotBlank for address validation (optional)
     private String address;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
-            joinColumns = @JoinColumn(name="user_id"),
-            inverseJoinColumns = @JoinColumn(name="role_id")
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
 
