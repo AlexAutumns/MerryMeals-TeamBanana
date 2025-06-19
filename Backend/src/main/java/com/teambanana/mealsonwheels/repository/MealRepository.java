@@ -21,11 +21,11 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
     // Find meals prepared by a specific user
     List<Meal> findByPreparedBy(User preparedBy);
 
-    // Find meals on a specific date
-    List<Meal> findByDate(LocalDate date);
+    // Find meals by preparation date
+    List<Meal> findByPreparationDate(LocalDate preparationDate);
 
-    // Find meals between two dates (inclusive)
-    List<Meal> findByDateBetween(LocalDate startDate, LocalDate endDate);
+    // Find meals between two preparation dates (inclusive)
+    List<Meal> findByPreparationDateBetween(LocalDate startDate, LocalDate endDate);
 
     // Find meals by name containing a keyword (case insensitive)
     List<Meal> findByNameContainingIgnoreCase(String keyword);
@@ -33,4 +33,3 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
     // Find meals by description containing a keyword (case insensitive)
     List<Meal> findByDescriptionContainingIgnoreCase(String keyword);
 }
-

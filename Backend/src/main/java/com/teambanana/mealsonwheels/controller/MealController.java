@@ -10,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +39,8 @@ public class MealController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Create new meal - NOTE: No validation yet, should add next time
+    // Create new meal
+    // NOTE: No validation yet, should add next time
     @PostMapping
     public ResponseEntity<Meal> createMeal(@RequestBody Meal meal) {
         // TODO: Add input validation (e.g., @Valid) in the future
@@ -60,7 +59,8 @@ public class MealController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedMeal);
     }
 
-    // Update meal by ID - NOTE: No validation or partial update handling yet
+    // Update meal by ID
+    // NOTE: No validation or partial update handling yet
     @PutMapping("/{id}")
     public ResponseEntity<Meal> updateMeal(@PathVariable Long id, @RequestBody Meal updatedMeal) {
         Optional<Meal> optionalMeal = mealRepository.findById(id);
@@ -72,7 +72,8 @@ public class MealController {
         meal.setName(updatedMeal.getName());
         meal.setDescription(updatedMeal.getDescription());
         meal.setFrozen(updatedMeal.isFrozen());
-        meal.setDate(updatedMeal.getDate());
+        meal.setPreparationDate(updatedMeal.getPreparationDate());
+        meal.setCalories(updatedMeal.getCalories());
         meal.setType(updatedMeal.getType());
 
         if (updatedMeal.getPreparedBy() != null && updatedMeal.getPreparedBy().getId() != null) {

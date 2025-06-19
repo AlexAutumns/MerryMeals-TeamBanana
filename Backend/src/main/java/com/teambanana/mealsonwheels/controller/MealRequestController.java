@@ -3,8 +3,10 @@ package com.teambanana.mealsonwheels.controller;
 import com.teambanana.mealsonwheels.Enum.MealRequestStatus;
 import com.teambanana.mealsonwheels.model.MealRequest;
 import com.teambanana.mealsonwheels.model.User;
+import com.teambanana.mealsonwheels.model.Meal;
 import com.teambanana.mealsonwheels.repository.MealRequestRepository;
 import com.teambanana.mealsonwheels.repository.UserRepository;
+import com.teambanana.mealsonwheels.repository.MealRepository;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
@@ -20,10 +22,12 @@ public class MealRequestController {
 
     private final MealRequestRepository mealRequestRepository;
     private final UserRepository userRepository;
+    private final MealRepository mealRepository;
 
-    public MealRequestController(MealRequestRepository mealRequestRepository, UserRepository userRepository) {
+    public MealRequestController(MealRequestRepository mealRequestRepository, UserRepository userRepository, MealRepository mealRepository) {
         this.mealRequestRepository = mealRequestRepository;
         this.userRepository = userRepository;
+        this.mealRepository = mealRepository;
     }
 
     // Get all meal requests (no pagination/filtering yet)
@@ -40,52 +44,6 @@ public class MealRequestController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Create a new meal request
-    @PostMapping
-    public ResponseEntity<MealRequest> createMealRequest(@RequestBody MealRequest mealRequest) {
-        // TODO: Add input validation (e.g., @Valid) later
-        // Validate User existence
-        if (mealRequest.getUser() == null || mealRequest.getUser().getId() == null) {
-            return ResponseEntity.badRequest().build();
-        }
-        Optional<User> user = userRepository.findById(mealRequest.getUser().getId());
-        if (user.isEmpty()) {
-            return ResponseEntity.badRequest().build();
-        }
-        mealRequest.setUser(user.get());
-
-        MealRequest saved = mealRequestRepository.save(mealRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
-    }
-
-    // Update existing meal request
-    @PutMapping("/{id}")
-    public ResponseEntity<MealRequest> updateMealRequest(@PathVariable Long id, @RequestBody MealRequest updatedMealRequest) {
-        Optional<MealRequest> optionalMealRequest = mealRequestRepository.findById(id);
-        if (optionalMealRequest.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        MealRequest mealRequest = optionalMealRequest.get();
-
-        mealRequest.setDietaryPreferences(updatedMealRequest.getDietaryPreferences());
-        mealRequest.setWeekendSupport(updatedMealRequest.isWeekendSupport());
-        mealRequest.setRequestDate(updatedMealRequest.getRequestDate());
-        mealRequest.setStatus(updatedMealRequest.getStatus());
-        mealRequest.setDeliveryAddress(updatedMealRequest.getDeliveryAddress());
-
-        // Update user if provided and valid
-        if (updatedMealRequest.getUser() != null && updatedMealRequest.getUser().getId() != null) {
-            Optional<User> user = userRepository.findById(updatedMealRequest.getUser().getId());
-            if (user.isEmpty()) {
-                return ResponseEntity.badRequest().build();
-            }
-            mealRequest.setUser(user.get());
-        }
-
-        MealRequest saved = mealRequestRepository.save(mealRequest);
-        return ResponseEntity.ok(saved);
-    }
-
     // Delete meal request by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMealRequest(@PathVariable Long id) {
@@ -96,4 +54,53 @@ public class MealRequestController {
         mealRequestRepository.delete(mealRequest.get());
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping
+    public ResponseEntity<MealRequest> createMealRequest(@RequestBody MealRequest mealRequest) {
+        if (mealRequest.getUser() == null || mealRequest.getUser().getId() == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<User> user = userRepository.findById(mealRequest.getUser().getId());
+        if (user.isEmpty()) return ResponseEntity.badRequest().build();
+        mealRequest.setUser(user.get());
+
+        // ✅ Validate and set Meal if provided
+        if (mealRequest.getMeal() != null && mealRequest.getMeal().getId() != null) {
+            Optional<Meal> meal = mealRepository.findById(mealRequest.getMeal().getId());
+            if (meal.isEmpty()) return ResponseEntity.badRequest().build();
+            mealRequest.setMeal(meal.get());
+        }
+
+        MealRequest saved = mealRequestRepository.save(mealRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<MealRequest> updateMealRequest(@PathVariable Long id, @RequestBody MealRequest updated) {
+        Optional<MealRequest> optional = mealRequestRepository.findById(id);
+        if (optional.isEmpty()) return ResponseEntity.notFound().build();
+
+        MealRequest mealRequest = optional.get();
+
+        mealRequest.setDietaryPreferences(updated.getDietaryPreferences());
+        mealRequest.setWeekendSupport(updated.isWeekendSupport());
+        mealRequest.setRequestDate(updated.getRequestDate());
+        mealRequest.setStatus(updated.getStatus());
+        mealRequest.setDeliveryAddress(updated.getDeliveryAddress());
+
+        if (updated.getUser() != null && updated.getUser().getId() != null) {
+            userRepository.findById(updated.getUser().getId())
+                    .ifPresent(mealRequest::setUser);
+        }
+
+        if (updated.getMeal() != null && updated.getMeal().getId() != null) {
+            mealRepository.findById(updated.getMeal().getId())
+                    .ifPresent(mealRequest::setMeal);
+        }
+
+        MealRequest saved = mealRequestRepository.save(mealRequest);
+        return ResponseEntity.ok(saved);
+    }
+
 }
