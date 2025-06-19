@@ -3,6 +3,7 @@ package com.teambanana.mealsonwheels.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import com.teambanana.mealsonwheels.Enum.*;
 
 @Entity
@@ -12,7 +13,8 @@ import com.teambanana.mealsonwheels.Enum.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Inspection {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private LocalDate date;
@@ -29,4 +31,11 @@ public class Inspection {
     @ManyToOne
     @JoinColumn(name = "inspector_id")
     private User inspector;
+
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    public void prePersist() {
+        createdAt = LocalDateTime.now();
+    }
 }
