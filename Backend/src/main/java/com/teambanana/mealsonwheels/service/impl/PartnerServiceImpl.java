@@ -37,8 +37,9 @@ public class PartnerServiceImpl implements PartnerService {
         return partnerRepository.findById(id)
                 .map(partner -> {
                     partner.setName(updatedPartner.getName());
+                    partner.setType(updatedPartner.getType());
+                    partner.setContactInfo(updatedPartner.getContactInfo());
                     partner.setEmail(updatedPartner.getEmail());
-                    // TODO: Add other fields and validation
                     return partnerRepository.save(partner);
                 }).orElseThrow(() -> new RuntimeException("Partner not found with id " + id));
     }

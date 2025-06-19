@@ -37,7 +37,8 @@ public class VolunteerScheduleServiceImpl implements VolunteerScheduleService {
         return scheduleRepository.findById(id)
                 .map(s -> {
                     s.setVolunteer(updatedSchedule.getVolunteer());
-                    s.setScheduleDate(updatedSchedule.getScheduleDate());
+                    s.setAvailableDate(updatedSchedule.getAvailableDate());
+                    s.setShift(updatedSchedule.getShift());
                     return scheduleRepository.save(s);
                 }).orElseThrow(() -> new RuntimeException("Schedule not found with id " + id));
     }

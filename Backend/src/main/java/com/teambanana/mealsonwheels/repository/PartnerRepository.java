@@ -18,4 +18,7 @@ public interface PartnerRepository extends JpaRepository<Partner, Long> {
 
     // Find partners by contact info containing a keyword (case insensitive)
     List<Partner> findByContactInfoContainingIgnoreCase(String keyword);
+
+    // Find partners by email
+    List<Partner> findByEmailContainingIgnoreCase(String keyword);
 }

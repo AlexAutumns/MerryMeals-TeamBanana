@@ -23,6 +23,8 @@ public class SupportTicket {
 
     private LocalDate createdDate;
 
+    private String response;
+
     @ManyToOne
     @JoinColumn(name = "submitted_by_id")
     private User submittedBy;

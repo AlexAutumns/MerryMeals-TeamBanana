@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
                 .map(user -> {
                     user.setEmail(updatedUser.getEmail());
                     user.setFullName(updatedUser.getFullName());
-                    user.setPhoneNumber(updatedUser.getPhoneNumber());
+                    user.setPhone(updatedUser.getPhone());
                     // TODO: Role mapping + field-level validation
                     return userRepository.save(user);
                 }).orElseThrow(() -> new RuntimeException("User not found with id " + id));

@@ -36,11 +36,16 @@ public class ReassessmentServiceImpl implements ReassessmentService {
     public Reassessment updateReassessment(Long id, Reassessment updated) {
         return reassessmentRepository.findById(id)
                 .map(r -> {
-                    r.setScheduledDate(updated.getScheduledDate());
-                    r.setUser(updated.getUser());
+                    r.setMember(updated.getMember());
+                    r.setOfficer(updated.getOfficer());
+                    r.setDate(updated.getDate());
+                    r.setSummary(updated.getSummary());
+                    r.setEligible(updated.isEligible());
+                    // TODO: Use DTO and add field validation in the future
                     return reassessmentRepository.save(r);
                 }).orElseThrow(() -> new RuntimeException("Reassessment not found with id " + id));
     }
+
 
     @Override
     public void deleteReassessment(Long id) {
