@@ -42,6 +42,7 @@ public class SupportTicketController {
             ticket.setSubject(updatedTicket.getSubject());
             ticket.setMessage(updatedTicket.getMessage());
             ticket.setStatus(updatedTicket.getStatus());
+            ticket.setResponse(updatedTicket.getResponse());
             return ResponseEntity.ok(supportTicketRepository.save(ticket));
         }).orElse(ResponseEntity.notFound().build());
     }

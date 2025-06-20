@@ -53,6 +53,7 @@ public class PartnerController {
         Partner partner = optionalPartner.get();
         partner.setName(updatedPartner.getName());
         partner.setType(updatedPartner.getType());
+        partner.setEmail(updatedPartner.getEmail());
         partner.setContactInfo(updatedPartner.getContactInfo());
 
         Partner saved = partnerRepository.save(partner);

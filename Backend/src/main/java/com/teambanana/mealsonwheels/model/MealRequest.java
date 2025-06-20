@@ -13,7 +13,8 @@ import com.teambanana.mealsonwheels.Enum.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MealRequest {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -31,4 +32,8 @@ public class MealRequest {
 
     @OneToMany(mappedBy = "mealRequest")
     private List<Delivery> deliveries;
+
+    @ManyToOne
+    @JoinColumn(name = "meal_id")
+    private Meal meal;
 }

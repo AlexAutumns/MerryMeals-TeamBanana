@@ -22,6 +22,8 @@ public class Partner {
 
     private String contactInfo;
 
+    private String email; // ✅ Newly added field
+
     @OneToMany(mappedBy = "partner")
     private List<Inspection> inspections;
 }

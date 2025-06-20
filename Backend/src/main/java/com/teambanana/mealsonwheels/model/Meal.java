@@ -18,8 +18,10 @@ public class Meal {
 
     private String name;
     private String description;
+    private Integer calories;
     private boolean frozen;
-    private LocalDate date;
+
+    private LocalDate preparationDate;
 
     @Enumerated(EnumType.STRING)
     private MealType type;
