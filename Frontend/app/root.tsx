@@ -11,7 +11,7 @@ import type { Route } from "./+types/root";
 import "./app.css";
 
 // COMPONENTS
-import NavBar from "./components/NavBar";
+import NavBar from "./components/Navbar";
 
 export const links: Route.LinksFunction = () => [
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -49,10 +49,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
     return (
-        <div>
+        <Layout>
             <NavBar />
             <Outlet />
-        </div>
+        </Layout>
     );
 }
 
