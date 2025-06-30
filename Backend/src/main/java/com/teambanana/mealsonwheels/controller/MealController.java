@@ -1,13 +1,11 @@
 package com.teambanana.mealsonwheels.controller;
 
-import com.teambanana.mealsonwheels.Enum.MealType;
 import com.teambanana.mealsonwheels.model.Meal;
 import com.teambanana.mealsonwheels.model.User;
 import com.teambanana.mealsonwheels.repository.MealRepository;
 import com.teambanana.mealsonwheels.repository.UserRepository;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,13 +23,11 @@ public class MealController {
         this.userRepository = userRepository;
     }
 
-    // Basic get all meals (no pagination, no filtering)
     @GetMapping
     public List<Meal> getAllMeals() {
         return mealRepository.findAll();
     }
 
-    // Get meal by ID
     @GetMapping("/{id}")
     public ResponseEntity<Meal> getMealById(@PathVariable Long id) {
         Optional<Meal> meal = mealRepository.findById(id);
@@ -39,28 +35,23 @@ public class MealController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Create new meal
-    // NOTE: No validation yet, should add next time
     @PostMapping
     public ResponseEntity<Meal> createMeal(@RequestBody Meal meal) {
-        // TODO: Add input validation (e.g., @Valid) in the future
-        // TODO: Check if preparedBy user exists before saving
-        if (meal.getPreparedBy() != null && meal.getPreparedBy().getId() != null) {
-            Optional<User> user = userRepository.findById(meal.getPreparedBy().getId());
-            if (user.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-            }
-            meal.setPreparedBy(user.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        if (meal.getPreparedBy() == null || meal.getPreparedBy().getId() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
+        Optional<User> user = userRepository.findById(meal.getPreparedBy().getId());
+        if (user.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        meal.setPreparedBy(user.get());
+
+        // Optional: Validate required fields like price, type, frozen here before saving.
 
         Meal savedMeal = mealRepository.save(meal);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedMeal);
     }
 
-    // Update meal by ID
-    // NOTE: No validation or partial update handling yet
     @PutMapping("/{id}")
     public ResponseEntity<Meal> updateMeal(@PathVariable Long id, @RequestBody Meal updatedMeal) {
         Optional<Meal> optionalMeal = mealRepository.findById(id);
@@ -75,6 +66,8 @@ public class MealController {
         meal.setPreparationDate(updatedMeal.getPreparationDate());
         meal.setCalories(updatedMeal.getCalories());
         meal.setType(updatedMeal.getType());
+        meal.setPrice(updatedMeal.getPrice());
+        meal.setTags(updatedMeal.getTags());
 
         if (updatedMeal.getPreparedBy() != null && updatedMeal.getPreparedBy().getId() != null) {
             Optional<User> user = userRepository.findById(updatedMeal.getPreparedBy().getId());
@@ -88,7 +81,6 @@ public class MealController {
         return ResponseEntity.ok(savedMeal);
     }
 
-    // Delete meal by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMeal(@PathVariable Long id) {
         Optional<Meal> meal = mealRepository.findById(id);

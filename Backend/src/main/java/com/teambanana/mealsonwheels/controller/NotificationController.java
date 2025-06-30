@@ -79,7 +79,7 @@ public class NotificationController {
 
         notification.setMessage(updatedNotification.getMessage());
         notification.setType(updatedNotification.getType());
-        notification.setRead(updatedNotification.isRead());
+        notification.setRead(updatedNotification.getRead());
         notification.setSentAt(updatedNotification.getSentAt());
 
         // Update recipient if provided and valid
