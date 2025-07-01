@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
     Bars3Icon,
     XMarkIcon,
@@ -10,9 +10,44 @@ const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [accountOpen, setAccountOpen] = useState(false);
 
-    const isLoggedIn = true; // Toggle this to false to simulate a guest user
-    const Username = "johndoe";
-    const UserRole = "admin";
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [username, setUsername] = useState("Guest");
+    const [userRoles, setUserRoles] = useState<string[]>([]);
+
+    // Helper to parse roles, removing "ROLE_" prefix
+    const roleParser = (roleStrings: any[]) => {
+        return roleStrings
+            .map((roleString) => {
+                if (roleString && roleString.startsWith("ROLE_")) {
+                    return roleString.substring(5);
+                }
+                return null;
+            })
+            .filter((roleName) => roleName !== null) as string[];
+    };
+
+    useEffect(() => {
+        const updateAuth = () => {
+            const token = localStorage.getItem("token");
+            setIsLoggedIn(!!token);
+            setUsername(localStorage.getItem("username") || "Guest");
+            const storedRoles = JSON.parse(
+                localStorage.getItem("userRoles") || "[]"
+            );
+            setUserRoles(roleParser(storedRoles));
+        };
+
+        // Listen for auth changes (login/logout)
+        window.addEventListener("authChanged", updateAuth);
+
+        // Initial check on mount
+        updateAuth();
+
+        // Cleanup listener on unmount
+        return () => {
+            window.removeEventListener("authChanged", updateAuth);
+        };
+    }, []);
 
     const navLinks = [
         { label: "Home", href: "/" },
@@ -61,10 +96,10 @@ const Navbar = () => {
                                     <UserCircleIcon className="h-10 w-10" />
                                     <div className="text-left">
                                         <h3 className="text-sm font-medium capitalize">
-                                            {Username}
+                                            {username}
                                         </h3>
                                         <p className="text-xs text-blue-500 capitalize">
-                                            {UserRole}
+                                            {userRoles[0] || "Member"}
                                         </p>
                                     </div>
                                 </button>
