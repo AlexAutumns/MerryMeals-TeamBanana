@@ -33,6 +33,10 @@ public class AuthController {
                 .map(Object::toString)
                 .toList();
 
-        return ResponseEntity.ok(new LoginResponseDto(token, roles));
+        String fullname = userPrincipal.getFullName();
+
+        String email = userPrincipal.getEmail();
+
+        return ResponseEntity.ok(new LoginResponseDto(token, roles, fullname, email));
     }
 }
