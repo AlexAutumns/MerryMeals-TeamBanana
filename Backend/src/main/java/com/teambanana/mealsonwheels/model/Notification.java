@@ -11,12 +11,20 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Notification {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 255)
     private String message;
+
+    @Column(length = 255)
     private String type;
-    private boolean read;
+
+    @Column(name = "is_read")
+    private Boolean read;
+
+    @Column(name = "sent_at")
     private LocalDateTime sentAt;
 
     @ManyToOne

@@ -46,7 +46,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<MealRequest> mealRequests;
 
-    @OneToMany(mappedBy = "recipient")
+    @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Notification> notifications;
 
     @OneToMany(mappedBy = "performedBy")
