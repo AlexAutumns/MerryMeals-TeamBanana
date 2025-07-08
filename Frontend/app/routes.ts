@@ -9,4 +9,5 @@ export default [
     route("/AllInsights", "routes/AllInsights.tsx"),
     route("/ImpactArticle", "routes/ImpactArticle.tsx"),
     route("/FoodSafety", "routes/FoodSafety.tsx"),
+    route("/logout", "routes/logout.tsx"),
 ] satisfies RouteConfig;

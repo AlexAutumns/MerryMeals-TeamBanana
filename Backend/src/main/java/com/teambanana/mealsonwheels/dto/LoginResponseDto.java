@@ -9,5 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 public class LoginResponseDto {
     private String token;
-    private List<String> roles;  // Change from single role to list of roles
+    private List<String> roles;
+    private String fullName;
+    private String email;
 }

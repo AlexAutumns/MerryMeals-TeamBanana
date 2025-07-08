@@ -1,16 +1,38 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
+import API from "../api/api"; // Adjust the import path as necessary
 
 const LoginForm = () => {
     const [form, setForm] = useState({ email: "", password: "" });
     const [showPassword, setShowPassword] = useState(false);
 
+    let navigate = useNavigate();
+
     const handleChange = (e: any) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
-        console.log("Logging in with", form);
+        try {
+            const res = await API.post("/auth/login", form);
+            if (res.status === 200) {
+                localStorage.setItem("token", res.data.token);
+                localStorage.setItem("username", res.data.fullName);
+                localStorage.setItem(
+                    "userRoles",
+                    JSON.stringify(res.data.roles)
+                );
+
+                // Dispatch event so Navbar updates immediately
+                window.dispatchEvent(new Event("authChanged"));
+
+                navigate("/dashboard");
+            }
+        } catch (error: any) {
+            console.error("Error logging in: ", error);
+            alert("Login failed. Please check your credentials.");
+        }
     };
 
     return (
