@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 const RegisterForm = () => {
     const [form, setForm] = useState({
@@ -8,6 +9,8 @@ const RegisterForm = () => {
         confirmPassword: "",
     });
 
+    const navigate = useNavigate();
+
     const handleChange = (e: any) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
@@ -16,6 +19,7 @@ const RegisterForm = () => {
         e.preventDefault();
         // TODO: Add validation and registration logic
         console.log("Registering with", form);
+        navigate("/login"); // Redirect to login after registration
     };
 
     return (

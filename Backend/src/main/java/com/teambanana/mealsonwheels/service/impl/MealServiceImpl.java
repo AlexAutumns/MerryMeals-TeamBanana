@@ -19,7 +19,7 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public Meal createMeal(Meal meal) {
-        return mealRepository.save(meal); // TODO: Use DTO for input validation
+        return mealRepository.save(meal);
     }
 
     @Override
@@ -42,8 +42,9 @@ public class MealServiceImpl implements MealService {
                     meal.setCalories(mealDetails.getCalories());
                     meal.setFrozen(mealDetails.isFrozen());
                     meal.setType(mealDetails.getType());
+                    meal.setPrice(mealDetails.getPrice());
+                    meal.setTags(mealDetails.getTags());
                     meal.setPreparedBy(mealDetails.getPreparedBy());
-                    // TODO: Add field validation or switch to DTO for safe update
                     return mealRepository.save(meal);
                 }).orElseThrow(() -> new RuntimeException("Meal not found with id " + id));
     }
