@@ -29,9 +29,9 @@ export default [
     route("/caregiver", "routes/caregiver/_index.tsx"),
   ]),
 
-  // Simple routes
-  route("/login", "routes/login.tsx"),
-  route("/register", "routes/register.tsx"),
-  route("/logout", "routes/logout.tsx"),
+  // Auth routes
+  route("/login", "routes/auth/login.tsx"),
+  route("/register", "routes/auth/register.tsx"),
+  route("/logout", "routes/auth/logout.tsx"),
   route("/admin", "routes/admin.tsx"),
 ] satisfies RouteConfig;
