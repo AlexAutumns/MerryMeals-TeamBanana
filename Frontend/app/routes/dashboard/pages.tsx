@@ -29,7 +29,7 @@ const mainPages = [
     {
         label: "Menu",
         icon: ListBulletIcon,
-        component: MenuPage, // ✅ This is crucial
+        component: MenuPage,
     },
 
     
