@@ -7,10 +7,12 @@ import {
     ChartBarIcon,
     PowerIcon,
     HeartIcon,
+    ListBulletIcon,
 } from "@heroicons/react/24/outline";
 
 // Pages
 import Overview from "./pages/overviewPages/overview";
+import MenuPage from "./menu";
 
 const mainPages = [
     { label: "Dashboard", icon: HomeIcon, component: Overview },
@@ -24,6 +26,13 @@ const mainPages = [
         icon: ChartBarIcon,
         component: () => <div>📈 Analytics and reports</div>,
     },
+    {
+        label: "Menu",
+        icon: ListBulletIcon,
+        component: MenuPage,
+    },
+
+    
 ];
 
 export default mainPages;

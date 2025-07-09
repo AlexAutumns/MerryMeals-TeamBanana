@@ -8,10 +8,11 @@ const DashboardLayout = () => {
 
     const UserRole = "admin"; // Simulating user role, can be "admin", "user", etc. (Add logic to handle this based on actual user data)
 
-    const renderContent = () => {
-        const current = mainPages.find((page) => page.label === activePage);
-        return current?.component ? current.component() : <p>Page not found</p>;
-    };
+   const renderContent = () => {
+    const current = mainPages.find((page) => page.label === activePage);
+    const Component = current?.component;
+    return Component ? <Component /> : <p>Page not found</p>;
+};
 
     return (
         <div className="min-h-screen flex">
