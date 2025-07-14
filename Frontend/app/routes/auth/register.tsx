@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import API from "../api/api"; // Adjust the import path as necessary
+import API from "../../api/api"; // Adjust the import path as necessary
 
 const RegisterForm = () => {
   const [form, setForm] = useState({
