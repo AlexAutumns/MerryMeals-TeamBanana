@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { menuData } from "../../testData/menuData";
-import type { MenuItem } from "../../testData/menuData";
+import { menuData } from "../../../testData/menuData";
+import type { MenuItem } from "../../../testData/menuData";
 
 const placeholderImage = "/images/placeholder.jpg";
 
