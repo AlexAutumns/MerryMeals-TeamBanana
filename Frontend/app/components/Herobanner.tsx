@@ -1,29 +1,29 @@
 // src/components/HeroBanner.tsx
-import useEmblaCarousel from 'embla-carousel-react';
-import { useEffect, useCallback, useState } from 'react';
-import { useNavigate } from 'react-router';
+import useEmblaCarousel from "embla-carousel-react";
+import { useEffect, useCallback, useState } from "react";
+import { useNavigate } from "react-router";
 
 const slides = [
   {
-    image: '/assets/herobanner_1.jpg',
-    title: 'Delivering Meals with Love',
-    text: 'Join our mission to feed those in need.',
-    button: 'Join Us',
-    link: '/login',
+    image: "/assets/herobanner_1.jpg",
+    title: "Delivering Meals with Love",
+    text: "Join our mission to feed those in need.",
+    button: "Join Us",
+    link: "/login",
   },
   {
-    image: '/assets/herobanner_2.jpg',
-    title: 'Volunteer Today',
-    text: 'Help bring smiles to our community.',
-    button: 'Become a Volunteer',
-    link: '/volunteer',
+    image: "/assets/herobanner_2.jpg",
+    title: "Volunteer Today",
+    text: "Help bring smiles to our community.",
+    button: "Become a Volunteer",
+    link: "/volunteer",
   },
   {
-    image: '/assets/herobanner_3.jpg',
-    title: 'Support the Cause',
-    text: 'Every donation makes a difference.',
-    button: 'Donate Now',
-    link: '/donate',
+    image: "/assets/herobanner_3.jpg",
+    title: "Support the Cause",
+    text: "Every donation makes a difference.",
+    button: "Donate Now",
+    link: "/donate",
   },
 ];
 
@@ -34,7 +34,7 @@ export default function HeroBanner() {
 
   const scrollTo = useCallback(
     (index: number) => emblaApi && emblaApi.scrollTo(index),
-    [emblaApi]
+    [emblaApi],
   );
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function HeroBanner() {
       emblaApi.scrollNext();
     }, 5000);
 
-    emblaApi.on('select', () => {
+    emblaApi.on("select", () => {
       setSelectedIndex(emblaApi.selectedScrollSnap());
     });
 
@@ -57,10 +57,7 @@ export default function HeroBanner() {
       <div className="overflow-hidden w-full h-full" ref={emblaRef}>
         <div className="flex h-full">
           {slides.map((slide, idx) => (
-            <div
-              key={idx}
-              className="flex-[0_0_100%] relative h-full w-full"
-            >
+            <div key={idx} className="flex-[0_0_100%] relative h-full w-full">
               <img
                 src={slide.image}
                 alt={slide.title}
@@ -92,8 +89,9 @@ export default function HeroBanner() {
             key={idx}
             onClick={() => scrollTo(idx)}
             className={`w-3 h-3 rounded-full ${
-              selectedIndex === idx ? 'bg-white' : 'bg-gray-400'
+              selectedIndex === idx ? "bg-white" : "bg-gray-400"
             }`}
+            aria-label={`Go to slide ${idx + 1}`}
           />
         ))}
       </div>
