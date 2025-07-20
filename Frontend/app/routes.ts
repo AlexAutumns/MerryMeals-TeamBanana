@@ -30,7 +30,12 @@ export default [
   ]),
 
   // Auth routes
-    route("/AllInsights", "routes/allinsights/AllInsights.tsx"),
-    route("/ImpactArticle", "routes/impactarticle/ImpactArticle.tsx"),
-    route("/FoodSafety", "routes/foodsafety/FoodSafety.tsx"),
+  route("/login", "routes/auth/login.tsx"),
+  route("/register", "routes/auth/register.tsx"),
+  route("/logout", "routes/auth/logout.tsx"),
+  route("/admin", "routes/admin/layout.tsx"),
+
+  route("/AllInsights", "routes/allinsights/AllInsights.tsx"),
+  route("/ImpactArticle", "routes/impactarticle/ImpactArticle.tsx"),
+  route("/FoodSafety", "routes/foodsafety/FoodSafety.tsx"),
 ] satisfies RouteConfig;
