@@ -1,55 +1,41 @@
 import React from "react";
 
 //Icons
-import { 
-  HomeIcon, 
-  UsersIcon, 
+import {
+  HomeIcon,
+  UsersIcon,
   ClipboardDocumentListIcon,
   ChartBarIcon,
   Cog6ToothIcon,
-  UserIcon
+  UserIcon,
+  HeartIcon,
 } from "@heroicons/react/24/outline";
 
 // Pages
+
 import Overview from "./overview";
+import AdminAnalytics from "./adminAnalytics";
+import AdminFavorites from "./adminFavorites";
+import ProfilePage from "./profile";
+import SettingsPage from "./settings";
 
-// Placeholder components for admin pages
-const ProfilePage = () => (
-  <div className="text-center py-12">
-    <p className="text-gray-500">Admin profile will be here in later updates.</p>
-  </div>
-);
+import UserManagement from "./AdminUsers";
+import OrdersPage from "./OrdersPage";
 
-const UsersPage = () => (
-  <div className="text-center py-12">
-    <p className="text-gray-500">User management will be here in later updates.</p>
-  </div>
-);
 
-const OrdersPage = () => (
-  <div className="text-center py-12">
-    <p className="text-gray-500">Order management will be here in later updates.</p>
-  </div>
-);
 
-const AnalyticsPage = () => (
-  <div className="text-center py-12">
-    <p className="text-gray-500">Analytics dashboard will be here in later updates.</p>
-  </div>
-);
 
-const SettingsPage = () => (
-  <div className="text-center py-12">
-    <p className="text-gray-500">System settings will be here in later updates.</p>
-  </div>
-);
+
+
+import { UserGroupIcon } from "@heroicons/react/24/outline";
 
 const adminPages = [
-  { label: "Profile", icon: UserIcon, component: ProfilePage },
   { label: "Dashboard", icon: HomeIcon, component: Overview },
-  { label: "Users", icon: UsersIcon, component: UsersPage },
+  { label: "Profile", icon: UserIcon, component: ProfilePage },
+  { label: "Favorites", icon: HeartIcon, component: AdminFavorites },
+  { label: "Analytics", icon: ChartBarIcon, component: AdminAnalytics },
+  { label: "User Management", icon: UserGroupIcon, component: UserManagement },
   { label: "Orders", icon: ClipboardDocumentListIcon, component: OrdersPage },
-  { label: "Analytics", icon: ChartBarIcon, component: AnalyticsPage },
   { label: "Settings", icon: Cog6ToothIcon, component: SettingsPage },
 ];
 
