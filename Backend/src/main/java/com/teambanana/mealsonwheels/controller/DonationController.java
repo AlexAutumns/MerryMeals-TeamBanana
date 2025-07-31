@@ -1,19 +1,25 @@
 package com.teambanana.mealsonwheels.controller;
 
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.teambanana.mealsonwheels.Enum.DonationMethod;
 import com.teambanana.mealsonwheels.model.Donation;
 import com.teambanana.mealsonwheels.model.User;
-import com.teambanana.mealsonwheels.Enum.DonationMethod;
 import com.teambanana.mealsonwheels.repository.DonationRepository;
 import com.teambanana.mealsonwheels.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/donations")
@@ -59,7 +65,11 @@ public class DonationController {
 
     @PostMapping
     public ResponseEntity<Donation> createDonation(@RequestBody Donation donation) {
-        // TODO: Add validate fields, e.g., amount > 0
+        // Accepts name, email, phone, amount, method
+        // Optionally set date if not provided
+        if (donation.getDate() == null) {
+            donation.setDate(java.time.LocalDate.now());
+        }
         return new ResponseEntity<>(donationRepository.save(donation), HttpStatus.CREATED);
     }
 }

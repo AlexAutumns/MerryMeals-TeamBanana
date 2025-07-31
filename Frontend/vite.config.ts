@@ -11,5 +11,14 @@ export default defineConfig(({ isSsrBuild }) => ({
         }
       : undefined,
   },
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:8080",
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
 }));
