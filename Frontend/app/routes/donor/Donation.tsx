@@ -11,8 +11,12 @@ export default function Donation() {
         card: "",
         expiry: "",
         cvc: "",
-        address: "United States",
-        postal: "",
+
+        streetAddress: "",
+        city: "",
+        stateProvinceRegion: "",
+        postalCode: "",
+        country: "",
     });
     const [paymentMethod, setPaymentMethod] = useState("card");
     const [showMore, setShowMore] = useState(false);
@@ -41,7 +45,7 @@ export default function Donation() {
         setSuccess(false);
 
         // Validate name (letters and spaces only)
-        if (!/^[A-Za-z ]+$/.test(form.name)) {
+        if (!/^[A-Za-z ]+$/.test(form.fullName)) {
             setError("Name must contain only letters and spaces.");
             return;
         }
@@ -68,7 +72,7 @@ export default function Donation() {
                 fullName: form.fullName,
                 email: form.email,
                 phone: form.phone,
-                address: form.address,
+                address: `${form.streetAddress}, ${form.city}, ${form.stateProvinceRegion}, ${form.postalCode}, ${form.country}`,
                 anonymous: form.anonymous,
             };
             const response = await fetch("/api/donations", {
@@ -87,8 +91,12 @@ export default function Donation() {
                 card: "",
                 expiry: "",
                 cvc: "",
-                address: "United States",
-                postal: "",
+
+                streetAddress: "",
+                city: "",
+                stateProvinceRegion: "",
+                postalCode: "",
+                country: "",
             });
         } catch (err: any) {
             setError(err.message || "Something went wrong");
@@ -127,8 +135,8 @@ export default function Donation() {
                         Enter Full Name
                     </label>
                     <input
-                        name="name"
-                        value={form.name}
+                        name="fullName"
+                        value={form.fullName}
                         onChange={handleChange}
                         required
                         placeholder="Full Name *"
@@ -158,7 +166,7 @@ export default function Donation() {
                         className="accent-blue-500 h-5 w-5 rounded"
                     />
                     <span className="text-blue-600 font-semibold text-lg">
-                        Make email anonymous
+                        Make donation anonymous
                     </span>
                 </div>
                 <div>
@@ -491,36 +499,74 @@ export default function Donation() {
                             />
                         </div>
                     </div>
-                    <div className="flex gap-4">
-                        <div className="flex-1">
-                            <label className="block text-gray-700 font-semibold mb-1">
-                                Address
-                            </label>
-                            <select
-                                name="country"
-                                value={form.address}
-                                onChange={handleChange}
-                                className="border border-gray-300 rounded-xl px-5 py-4 w-full text-lg shadow-sm"
-                            >
-                                <option>United States</option>
-                                <option>United Kingdom</option>
-                                <option>Canada</option>
-                                <option>Australia</option>
-                                <option>Other</option>
-                            </select>
-                        </div>
-                        <div className="flex-1">
-                            <label className="block text-gray-700 font-semibold mb-1">
-                                Postal code
+                    <div className="grid-cols-2 gap-4">
+                        <div className="flex-1 mt-4">
+                            <label class="block text-gray-700 font-semibold mb-1">
+                                Street Address
                             </label>
                             <input
-                                name="postal"
-                                value={form.postal}
+                                type="text"
+                                name="streetAddress"
+                                value={form.streetAddress}
                                 onChange={handleChange}
-                                required
-                                placeholder="Postal code"
-                                className="border border-gray-300 rounded-xl px-5 py-4 w-full text-lg shadow-sm"
-                                maxLength={10}
+                                class="border border-gray-300 rounded-xl px-5 py-4 w-full text-lg shadow-sm hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="Street address, apartment, suite, etc."
+                            />
+                        </div>
+
+                        <div class="flex-1 mt-4">
+                            <label className="block text-gray-700 font-semibold mb-1">
+                                City
+                            </label>
+                            <input
+                                type="text"
+                                name="city"
+                                value={form.city}
+                                onChange={handleChange}
+                                className="border border-gray-300 rounded-xl px-5 py-4 w-full text-lg shadow-sm hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="City"
+                            />
+                        </div>
+
+                        <div className="flex-1 mt-4">
+                            <label className="block text-gray-700 font-semibold mb-1">
+                                State/Province/Region
+                            </label>
+                            <input
+                                type="text"
+                                name="stateProvinceRegion"
+                                value={form.stateProvinceRegion}
+                                onChange={handleChange}
+                                className="border border-gray-300 rounded-xl px-5 py-4 w-full text-lg shadow-sm hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="State, Province, or Region"
+                            />
+                        </div>
+
+                        <div className="flex-1 mt-4">
+                            <label className="block text-gray-700 font-semibold mb-1">
+                                Postal Code
+                            </label>
+                            <input
+                                type="text"
+                                name="postalCode"
+                                value={form.postalCode}
+                                onChange={handleChange}
+                                className="border border-gray-300 rounded-xl px-5 py-4 w-full text-lg shadow-sm hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="Postal Code"
+                            />
+                        </div>
+
+                        <div className="flex-1 mt-4">
+                            <label className="block text-gray-700 font-semibold mb-1">
+                                Country
+                            </label>
+                            <input
+                                type="text"
+                                name="country"
+                                value={form.country}
+                                onChange={handleChange}
+                                className="border border-gray-300 rounded-xl px-5 py-4 w-full text-lg shadow-sm hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="Enter your country"
                             />
                         </div>
                     </div>
