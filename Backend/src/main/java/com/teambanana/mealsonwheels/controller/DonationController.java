@@ -5,19 +5,12 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.teambanana.mealsonwheels.Enum.DonationMethod;
 import com.teambanana.mealsonwheels.model.Donation;
-import com.teambanana.mealsonwheels.model.User;
 import com.teambanana.mealsonwheels.repository.DonationRepository;
-import com.teambanana.mealsonwheels.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,25 +20,10 @@ import lombok.RequiredArgsConstructor;
 public class DonationController {
 
     private final DonationRepository donationRepository;
-    private final UserRepository userRepository;
 
     @GetMapping
     public ResponseEntity<List<Donation>> getAllDonations() {
         return ResponseEntity.ok(donationRepository.findAll());
-    }
-
-    @GetMapping("/by-donor/{donorId}")
-    public ResponseEntity<List<Donation>> getDonationsByDonor(@PathVariable Long donorId) {
-        User donor = userRepository.findById(donorId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Donor not found"));
-        return ResponseEntity.ok(donationRepository.findByDonor(donor));
-    }
-
-    @GetMapping("/by-donor/{donorId}/ordered")
-    public ResponseEntity<List<Donation>> getDonationsByDonorOrdered(@PathVariable Long donorId) {
-        User donor = userRepository.findById(donorId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Donor not found"));
-        return ResponseEntity.ok(donationRepository.findByDonorOrderByDateDesc(donor));
     }
 
     @GetMapping("/by-method/{method}")
@@ -63,12 +41,25 @@ public class DonationController {
         }
     }
 
+    @GetMapping("/by-name/{name}")
+    public ResponseEntity<List<Donation>> getDonationsByFullName(@PathVariable String name) {
+        return ResponseEntity.ok(donationRepository.findByFullNameContainingIgnoreCase(name));
+    }
+
+    @GetMapping("/by-email/{email}")
+    public ResponseEntity<List<Donation>> getDonationsByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(donationRepository.findByEmailContainingIgnoreCase(email));
+    }
+
+    @GetMapping("/anonymous")
+    public ResponseEntity<List<Donation>> getAnonymousDonations() {
+        return ResponseEntity.ok(donationRepository.findByAnonymousTrue());
+    }
+
     @PostMapping
     public ResponseEntity<Donation> createDonation(@RequestBody Donation donation) {
-        // Accepts name, email, phone, amount, method
-        // Optionally set date if not provided
         if (donation.getDate() == null) {
-            donation.setDate(java.time.LocalDate.now());
+            donation.setDate(LocalDate.now());
         }
         return new ResponseEntity<>(donationRepository.save(donation), HttpStatus.CREATED);
     }

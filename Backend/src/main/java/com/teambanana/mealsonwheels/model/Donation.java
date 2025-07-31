@@ -37,12 +37,9 @@ public class Donation {
     private LocalDate date;
 
     // New fields for direct donor info
-    private String name;
+    private String fullName;
     private String email;
     private String phone;
-    private String country;
-
-    @ManyToOne
-    @JoinColumn(name = "donor_id")
-    private User donor;
+    private String address;
+    private Boolean anonymous;
 }
