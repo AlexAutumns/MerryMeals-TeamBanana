@@ -1,13 +1,204 @@
 // src/pages/Home.tsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import HeroBanner from "~/components/Herobanner";
 
 const Home = () => {
   return (
-    <div className="font-sans text-gray-800">
-      {/* Hero */}
-      <HeroBanner />
+    <div className="font-sans text-gray-800 bg-gray-50">
+      {/* Animated Hero Section with Slider */}
+      <style>{`
+        @keyframes slideInRight {
+          0% { transform: translateX(100%); opacity: 0.7; }
+          100% { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOutLeft {
+          0% { transform: translateX(0); opacity: 1; }
+          100% { transform: translateX(-100%); opacity: 0.7; }
+        }
+        @keyframes slideInLeft {
+          0% { transform: translateX(-100%); opacity: 0.7; }
+          100% { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOutRight {
+          0% { transform: translateX(0); opacity: 1; }
+          100% { transform: translateX(100%); opacity: 0.7; }
+        }
+        @keyframes heroTextSlideInRight {
+          0% { opacity: 0; transform: translate(-30%, -50%); }
+          100% { opacity: 1; transform: translate(-50%, -50%); }
+        }
+        @keyframes heroTextSlideInLeft {
+          0% { opacity: 0; transform: translate(-70%, -50%); }
+          100% { opacity: 1; transform: translate(-50%, -50%); }
+        }
+        .animate-heroTextSlideInRight {
+          animation: heroTextSlideInRight 1.2s cubic-bezier(0.4,0,0.2,1) both;
+        }
+        .animate-heroTextSlideInLeft {
+          animation: heroTextSlideInLeft 1.2s cubic-bezier(0.4,0,0.2,1) both;
+        }
+        .animate-slideInRight, .animate-slideOutLeft, .animate-slideInLeft, .animate-slideOutRight {
+          animation-duration: 1.2s !important;
+        }
+      `}</style>
+      <section className="relative h-[28rem] md:h-[38rem] flex items-center justify-center mb-4 overflow-hidden">
+        {(() => {
+          const slides = [
+            {
+              image: "/assets/herobanner_1.jpg",
+              headline: "Welcome to Merry Meals",
+              tagline: "Nourishing lives, one meal at a time.",
+              button: { text: "Get Started", link: "/" },
+            },
+            {
+              image: "/assets/herobanner_3.jpg",
+              headline: "Donate Now, Change a Life",
+              tagline: "Your support brings hope and food to the table.",
+              button: { text: "Donate Now", link: "/donor" },
+            },
+            {
+              image: "/assets/herobanner_2.jpg",
+              headline: "Volunteers Making a Difference",
+              tagline: "People helping the elderly, united in compassion.",
+              button: { text: "Join as Volunteer", link: "/volunteer" },
+            },
+          ];
+          const [current, setCurrent] = useState(0);
+          const [prev, setPrev] = useState(0);
+          const [isSliding, setIsSliding] = useState(false);
+          const [slideDir, setSlideDir] = useState("right");
+          const [showPrevText, setShowPrevText] = useState(false);
+          const [textDir, setTextDir] = useState("right");
+          useEffect(() => {
+            if (isSliding) return;
+            const interval = setInterval(() => {
+              setSlideDir("right");
+              setTextDir("right");
+              setPrev(current);
+              setShowPrevText(true);
+              setIsSliding(true);
+              setTimeout(() => {
+                setCurrent((prevIdx) => (prevIdx + 1) % slides.length);
+                setIsSliding(false);
+                setTimeout(() => setShowPrevText(false), 1200);
+              }, 50);
+            }, 6000);
+            return () => clearInterval(interval);
+          }, [current, isSliding, slides.length]);
+          const goTo = (dir: "next" | "prev") => {
+            if (isSliding) return;
+            const direction = dir === "next" ? "right" : "left";
+            setSlideDir(direction);
+            setTextDir(direction);
+            setPrev(current);
+            setShowPrevText(true);
+            setIsSliding(true);
+            setTimeout(() => {
+              setCurrent((prevIdx) => {
+                if (dir === "prev")
+                  return prevIdx === 0 ? slides.length - 1 : prevIdx - 1;
+                if (dir === "next") return (prevIdx + 1) % slides.length;
+                return prevIdx;
+              });
+              setIsSliding(false);
+              setTimeout(() => setShowPrevText(false), 1200);
+            }, 50);
+          };
+          return (
+            <div className="relative w-full h-[28rem] md:h-[38rem] flex items-center justify-center">
+              <div className="absolute inset-0 z-0 overflow-hidden">
+                {showPrevText && (
+                  <img
+                    key={prev}
+                    src={slides[prev].image}
+                    alt="Merry Meals Hero Slide"
+                    className={`absolute inset-0 w-full h-full object-cover z-10`}
+                    style={{
+                      animation: `${slideDir === "right" ? "slideOutLeft" : "slideOutRight"} 1.2s cubic-bezier(0.4,0,0.2,1) both`,
+                    }}
+                    draggable="false"
+                  />
+                )}
+                <img
+                  key={current}
+                  src={slides[current].image}
+                  alt="Merry Meals Hero Slide"
+                  className={`absolute inset-0 w-full h-full object-cover z-20`}
+                  style={
+                    showPrevText
+                      ? {
+                          animation: `${slideDir === "right" ? "slideInRight" : "slideInLeft"} 1.2s cubic-bezier(0.4,0,0.2,1) both`,
+                        }
+                      : {}
+                  }
+                  draggable="false"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-900/60 via-blue-700/40 to-blue-400/30" />
+              </div>
+              <button
+                aria-label="Previous slide"
+                onClick={() => goTo("prev")}
+                className="absolute left-4 z-30 bg-white/80 hover:bg-white text-blue-700 rounded-full shadow p-2 transition"
+                style={{ top: "50%", transform: "translateY(-50%)" }}
+              >
+                <span className="text-2xl font-bold">&#60;</span>
+              </button>
+              <div
+                key={current}
+                className={`absolute z-20 flex flex-col items-center justify-center w-full max-w-3xl mx-auto px-4 text-center ${textDir === "right" ? "animate-heroTextSlideInRight" : "animate-heroTextSlideInLeft"}`}
+                style={{
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  position: "absolute",
+                }}
+              >
+                <h1 className="text-4xl md:text-5xl font-extrabold text-white drop-shadow mb-3">
+                  {slides[current].headline}
+                </h1>
+                <p className="text-lg md:text-2xl text-blue-100 font-medium mb-6 drop-shadow">
+                  {slides[current].tagline}
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full">
+                  <a
+                    href={slides[current].button.link}
+                    className="inline-block px-8 py-3 bg-blue-600 text-white rounded-xl font-semibold shadow hover:bg-blue-700"
+                  >
+                    {slides[current].button.text}
+                  </a>
+                  {/* Show Donate Now button on all slides except the 'Donate Now' slide (index 1) */}
+                  {current !== 1 && (
+                    <a
+                      href="/donor"
+                      className="inline-block px-8 py-3 bg-blue-600 text-white rounded-xl font-semibold shadow hover:bg-blue-700"
+                    >
+                      Donate Now
+                    </a>
+                  )}
+                </div>
+              </div>
+              <button
+                aria-label="Next slide"
+                onClick={() => goTo("next")}
+                className="absolute right-4 z-30 bg-white/80 hover:bg-white text-blue-700 rounded-full shadow p-2 transition"
+                style={{ top: "50%", transform: "translateY(-50%)" }}
+              >
+                <span className="text-2xl font-bold">&#62;</span>
+              </button>
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+                {slides.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrent(idx)}
+                    className={`w-3 h-3 rounded-full border-2 ${idx === current ? "bg-blue-600 border-blue-600" : "bg-white border-blue-300"}`}
+                    aria-label={`Go to slide ${idx + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          );
+        })()}
+      </section>
 
       {/* Services */}
       <section className="py-12 px-4 bg-white">

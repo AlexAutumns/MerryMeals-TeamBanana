@@ -1,6 +1,7 @@
 package com.teambanana.mealsonwheels.config;
 
-import com.teambanana.mealsonwheels.security.JwtAuthenticationFilter;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,7 +19,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.List;
+import com.teambanana.mealsonwheels.security.JwtAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
@@ -40,6 +41,9 @@ public class SecurityConfig {
 
                         // Public GET access to meals
                         .requestMatchers(HttpMethod.GET, "/api/meals/**").permitAll()
+
+                        // Allow donations without authentication (for testing)
+                        .requestMatchers(HttpMethod.POST, "/api/donations").permitAll()
 
                         // Admin-only access to admin APIs
                         .requestMatchers("/api/admin/**").hasAnyRole("ADMIN", "ADMIN_STAFF")
@@ -73,7 +77,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:3000")); // Update as needed
+        config.setAllowedOrigins(List.of("http://localhost:3000"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
