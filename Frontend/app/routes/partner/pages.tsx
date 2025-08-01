@@ -8,42 +8,22 @@ import {
   Cog6ToothIcon,
 } from "@heroicons/react/24/outline";
 
-const DashboardPage = () => (
-  <div>
-    <p className="text-gray-600">
-      Partner dashboard will be here in later updates
-    </p>
-  </div>
-);
-const KitchenPage = () => (
-  <div>
-    <p className="text-gray-600">
-      Kitchen management will be here in later updates
-    </p>
-  </div>
-);
-const AnalyticsPage = () => (
-  <div>
-    <p className="text-gray-600">Analytics will be here in later updates</p>
-  </div>
-);
-const ProfilePage = () => (
-  <div>
-    <p className="text-gray-600">Profile will be here in later updates</p>
-  </div>
-);
-const SettingsPage = () => (
-  <div>
-    <p className="text-gray-600">Partner settings will be here in later updates</p>
-  </div>
-);
+import PartnerDashboardPage from "./PartnerDashboardPage";
+import PartnerKitchenPage from "./kitchen";
+import PartnerProfilePage from "./PartnerProfilePage";
+import PartnerSettingsPage from "./settings";
+import PartnerAnalyticsPage from "./analytics";
 
 const partnerPages = [
-  { label: "Profile", icon: UserIcon, component: ProfilePage },
-  { label: "Dashboard", icon: HomeIcon, component: DashboardPage },
-  { label: "Kitchen", icon: BuildingStorefrontIcon, component: KitchenPage },
-  { label: "Analytics", icon: ChartBarIcon, component: AnalyticsPage },
-  { label: "Settings", icon: Cog6ToothIcon, component: SettingsPage },
+  { label: "Profile", icon: UserIcon, component: PartnerProfilePage },
+  { label: "Dashboard", icon: HomeIcon, component: PartnerDashboardPage },
+  {
+    label: "Kitchen",
+    icon: BuildingStorefrontIcon,
+    component: PartnerKitchenPage,
+  },
+  { label: "Analytics", icon: ChartBarIcon, component: PartnerAnalyticsPage },
+  { label: "Settings", icon: Cog6ToothIcon, component: PartnerSettingsPage },
 ];
 
 export default partnerPages;

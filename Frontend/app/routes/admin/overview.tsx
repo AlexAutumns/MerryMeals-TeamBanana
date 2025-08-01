@@ -44,18 +44,191 @@ const Overview = () => {
         </div>
       </div>
 
-      {/* Main Chart Section */}
-      <div className="bg-white rounded-lg shadow p-6 mb-8">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
-          Weekly Delivery Overview
-        </h2>
-        <div className="h-64 bg-gray-100 rounded flex items-center justify-center border-2 border-dashed border-gray-300">
-          <div className="text-center">
-            <p className="text-gray-500 text-lg mb-2">📊 Chart Area</p>
-            <p className="text-gray-400 text-sm">
-              Delivery statistics chart will be displayed here
-            </p>
+      {/* Main Chart Section - Modern Line Chart */}
+      <div className="bg-white rounded-lg shadow mb-8 p-0">
+        <div className="flex justify-between items-center mb-4 px-6 pt-6">
+          <h2 className="text-xl font-semibold text-gray-800">
+            Weekly Delivery Overview
+          </h2>
+          <div>
+            <select className="border border-gray-300 rounded px-3 py-1 text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-200">
+              <option>This Week</option>
+              <option>Last Week</option>
+              <option>2 Weeks Ago</option>
+            </select>
           </div>
+        </div>
+        <div className="h-64 w-full flex items-center justify-center p-0">
+          <svg
+            viewBox="0 0 3200 240"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-full h-56"
+            style={{ display: "block" }}
+          >
+            {/* Grid Lines */}
+            <g stroke="#e5e7eb" strokeWidth="1">
+              <line x1="80" y1="40" x2="3120" y2="40" />
+              <line x1="80" y1="80" x2="3120" y2="80" />
+              <line x1="80" y1="120" x2="3120" y2="120" />
+              <line x1="80" y1="160" x2="3120" y2="160" />
+              <line x1="80" y1="200" x2="3120" y2="200" />
+            </g>
+            {/* Y Axis Labels */}
+            <text
+              x="60"
+              y="45"
+              textAnchor="end"
+              fontSize="22"
+              fontWeight="700"
+              fill="#374151"
+            >
+              100
+            </text>
+            <text
+              x="60"
+              y="85"
+              textAnchor="end"
+              fontSize="22"
+              fontWeight="700"
+              fill="#374151"
+            >
+              80
+            </text>
+            <text
+              x="60"
+              y="125"
+              textAnchor="end"
+              fontSize="22"
+              fontWeight="700"
+              fill="#374151"
+            >
+              60
+            </text>
+            <text
+              x="60"
+              y="165"
+              textAnchor="end"
+              fontSize="22"
+              fontWeight="700"
+              fill="#374151"
+            >
+              40
+            </text>
+            <text
+              x="60"
+              y="205"
+              textAnchor="end"
+              fontSize="22"
+              fontWeight="700"
+              fill="#374151"
+            >
+              20
+            </text>
+            {/* X Axis Labels (Days of the week) */}
+            <text
+              x="80"
+              y="235"
+              textAnchor="middle"
+              fontSize="20"
+              fontWeight="700"
+              fill="#374151"
+            >
+              Mon
+            </text>
+            <text
+              x="600"
+              y="235"
+              textAnchor="middle"
+              fontSize="20"
+              fontWeight="700"
+              fill="#374151"
+            >
+              Tue
+            </text>
+            <text
+              x="1120"
+              y="235"
+              textAnchor="middle"
+              fontSize="20"
+              fontWeight="700"
+              fill="#374151"
+            >
+              Wed
+            </text>
+            <text
+              x="1640"
+              y="235"
+              textAnchor="middle"
+              fontSize="20"
+              fontWeight="700"
+              fill="#374151"
+            >
+              Thu
+            </text>
+            <text
+              x="2160"
+              y="235"
+              textAnchor="middle"
+              fontSize="20"
+              fontWeight="700"
+              fill="#374151"
+            >
+              Fri
+            </text>
+            <text
+              x="2680"
+              y="235"
+              textAnchor="middle"
+              fontSize="20"
+              fontWeight="700"
+              fill="#374151"
+            >
+              Sat
+            </text>
+            <text
+              x="3120"
+              y="235"
+              textAnchor="middle"
+              fontSize="20"
+              fontWeight="700"
+              fill="#374151"
+            >
+              Sun
+            </text>
+            {/* Area under the line */}
+            <defs>
+              <linearGradient
+                id="areaGradientAdmin"
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="1"
+              >
+                <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.18" />
+                <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M80,170 L600,110 L1120,90 L1640,130 L2160,80 L2680,120 L3120,100 L3120,210 L80,210 Z"
+              fill="url(#areaGradientAdmin)"
+            />
+            {/* Line */}
+            <polyline
+              points="80,170 600,110 1120,90 1640,130 2160,80 2680,120 3120,100"
+              fill="none"
+              stroke="#3b82f6"
+              strokeWidth="4"
+            />
+            {/* Dots */}
+            <circle cx="80" cy="170" r="6" fill="#3b82f6" />
+            <circle cx="600" cy="110" r="6" fill="#3b82f6" />
+            <circle cx="1120" cy="90" r="6" fill="#3b82f6" />
+            <circle cx="1640" cy="130" r="6" fill="#3b82f6" />
+            <circle cx="2160" cy="80" r="6" fill="#3b82f6" />
+            <circle cx="2680" cy="120" r="6" fill="#3b82f6" />
+            <circle cx="3120" cy="100" r="6" fill="#3b82f6" />
+          </svg>
         </div>
       </div>
 
