@@ -1,6 +1,8 @@
 // src/pages/Home.tsx
 import React, { useState, useEffect } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import HeroBanner from "~/components/Herobanner";
+import { Facebook, Instagram, Youtube, Linkedin } from "lucide-react";
 
 const Home = () => {
   return (
@@ -200,60 +202,80 @@ const Home = () => {
         })()}
       </section>
 
+      {/* About Us Section */}
+      <section className="py-20 px-6 bg-white flex justify-center items-center">
+        <div className="max-w-4xl w-full bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-10 border border-blue-100">
+          <h2 className="text-3xl font-bold text-[#1B69C1] mb-6 text-center">About Us</h2>
+          <p className="text-lg text-gray-700 leading-relaxed mb-6 text-center">
+            <strong>MerryMeals</strong> is a compassionate, community-driven initiative dedicated to delivering
+            nutritious, home-cooked meals to those who need them the most—especially the elderly,
+            individuals with disabilities, and low-income families.
+            <br /><br />
+            We strive not only to feed the body but also to uplift the spirit by promoting dignity, health,
+            and human connection through every delivery. Our services are powered by a network of volunteers,
+            donors, and local partners who believe that no one should go hungry or feel forgotten.
+            <br /><br />
+            Together, we are building a stronger, healthier, and more caring society — one meal at a time.
+          </p>
+          <div className="flex justify-center">
+            <a
+              href="/about"
+              className="inline-flex items-center px-6 py-3 bg-[#1B69C1] text-white font-semibold rounded-lg shadow hover:bg-[#2062AF] transition"
+            >
+              Learn More
+              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Services */}
-      <section className="py-12 px-4 bg-white">
+      <section className="py-16 px-4 bg-gray-50">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl font-bold mb-6 text-center">Our Services</h2>
+          <h2 className="text-3xl font-bold text-[#1B69C1] mb-10 text-center">Our Services</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 title: "Meal Delivery",
-                description:
-                  "Nutritious, home-cooked meals delivered daily to seniors and people with disabilities.",
+                description: "Nutritious, home-cooked meals delivered daily to seniors and people with disabilities.",
                 image: "/assets/menu_Title.jpg",
               },
               {
                 title: "Health & Wellness Checks",
-                description:
-                  "Our volunteers conduct basic wellness checks during deliveries to ensure recipients are safe.",
+                description: "Our volunteers conduct basic wellness checks during deliveries to ensure recipients are safe.",
                 image: "/assets/health_wellness_checks.jpg",
               },
               {
                 title: "Nutritional Planning",
-                description:
-                  "Custom meal plans created in consultation with dietitians to suit dietary restrictions and health needs.",
+                description: "Custom meal plans created in consultation with dietitians to suit dietary restrictions and health needs.",
                 image: "/assets/nutritional_planning.jpg",
               },
               {
                 title: "Weekend & Remote Area Support",
-                description:
-                  "Frozen meals delivered in advance for seniors living in remote areas or during weekends when hot deliveries are unavailable.",
+                description: "Frozen meals delivered in advance for seniors living in remote areas or during weekends when hot deliveries are unavailable.",
                 image: "/assets/frozen_food.jpg",
               },
               {
                 title: "Senior Engagement & Wellness",
-                description:
-                  "Community activities and friendly visits to reduce isolation and promote mental well-being among elderly meal recipients.",
+                description: "Community activities and friendly visits to reduce isolation and promote mental well-being among elderly meal recipients.",
                 image: "/assets/senior_wellness_check.jpg",
               },
               {
                 title: "Volunteer Onboarding & Food Safety",
-                description:
-                  "Comprehensive training for volunteers on elderly care, food safety standards, and compassionate delivery practices.",
+                description: "Comprehensive training for volunteers on elderly care, food safety standards, and compassionate delivery practices.",
                 image: "/assets/volunteer_training.jpg",
               },
             ].map((service, index) => (
-              <div
-                key={index}
-                className="bg-gray-100 p-6 rounded-lg shadow hover:shadow-lg transition"
-              >
+              <div key={index} className="bg-white border border-gray-100 p-6 rounded-lg shadow hover:shadow-md transition">
                 <img
                   src={service.image}
                   alt={service.title}
-                  className="mx-auto h-32 w-full object-cover rounded mb-4"
+                  className="h-32 w-full object-cover rounded mb-4"
                 />
-                <h3 className="font-semibold mb-2">{service.title}</h3>
-                <p className="text-sm">{service.description}</p>
+                <h3 className="font-semibold text-[#1B69C1] mb-2 text-lg">{service.title}</h3>
+                <p className="text-sm text-gray-700">{service.description}</p>
               </div>
             ))}
           </div>
@@ -452,120 +474,97 @@ const Home = () => {
         </div>
       </section>
 
+     {/* Contact Section */}
+<section className="py-20 px-6 bg-gray-100">
+  <div className="max-w-4xl mx-auto bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-10 border border-blue-100">
+    <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Get in Touch</h2>
+    <p className="text-base text-gray-700 leading-relaxed mb-8 text-center">
+      Whether you're looking to volunteer, donate, or just have questions about MerryMeals,
+      we're here to connect with you. Our team is always ready to hear from you and guide you on
+      how you can be part of this meaningful mission.
+    </p>
+    <div className="text-center">
+      <a
+        href="/contact"
+        className="inline-flex items-center px-6 py-3 bg-[#1B69C1] text-white font-semibold rounded-lg shadow hover:bg-[#2062AF] transition"
+      >
+        Contact Us
+        <svg
+          className="w-5 h-5 ml-2"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+
       {/* Footer */}
-      <footer className="bg-white border-t py-8 px-4">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-8 text-sm">
-          <div>
-            <h4 className="font-semibold mb-2">Contact</h4>
-            <p>Email: info@merrymeals.org</p>
-            <p>Phone: +123 456 7890</p>
-            <div className="flex gap-4 mt-4">
-              <a
-                href="#"
-                aria-label="Facebook"
-                className="rounded-full bg-gray-100 border border-gray-200 shadow-sm transition-colors duration-200 p-2 group hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
-              >
-                <svg
-                  className="w-6 h-6 text-gray-700 group-hover:text-black transition-colors"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path d="M22.675 0h-21.35C.595 0 0 .592 0 1.326v21.348C0 23.406.595 24 1.325 24h11.495v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.797.143v3.24l-1.918.001c-1.504 0-1.797.715-1.797 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.406 24 24 23.406 24 22.674V1.326C24 .592 23.406 0 22.675 0" />
-                </svg>
-                <span className="sr-only">Facebook</span>
-              </a>
-              <a
-                href="#"
-                aria-label="Instagram"
-                className="rounded-full bg-gray-100 border border-gray-200 shadow-sm transition-colors duration-200 p-2 group hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
-              >
-                <svg
-                  className="w-6 h-6 text-gray-700 group-hover:text-black transition-colors"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.974.974 1.246 2.241 1.308 3.608.058 1.266.069 1.646.069 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.974.974-2.241 1.246-3.608 1.308-1.266.058-1.646.069-4.85.069s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.974-.974-1.246-2.241-1.308-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.974-.974 2.241-1.246 3.608-1.308C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.775.131 4.602.425 3.635 1.392 2.668 2.359 2.374 3.532 2.315 4.808 2.256 6.088 2.243 6.497 2.243 12c0 5.503.013 5.912.072 7.192.059 1.276.353 2.449 1.32 3.416.967.967 2.14 1.261 3.416 1.32 1.28.059 1.689.072 7.192.072s5.912-.013 7.192-.072c1.276-.059 2.449-.353 3.416-1.32.967-.967 1.261-2.14 1.32-3.416.059-1.28.072-1.689.072-7.192s-.013-5.912-.072-7.192c-.059-1.276-.353-2.449-1.32-3.416C21.551.425 20.378.131 19.102.072 17.822.013 17.413 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm7.2-10.406a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z" />
-                </svg>
-                <span className="sr-only">Instagram</span>
-              </a>
-              <a
-                href="#"
-                aria-label="YouTube"
-                className="rounded-full bg-gray-100 border border-gray-200 shadow-sm transition-colors duration-200 p-2 group hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
-              >
-                <svg
-                  className="w-6 h-6 text-gray-700 group-hover:text-black transition-colors"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path d="M23.498 6.186a2.994 2.994 0 0 0-2.112-2.112C19.13 3.5 12 3.5 12 3.5s-7.13 0-9.386.574a2.994 2.994 0 0 0-2.112 2.112C0 8.442 0 12 0 12s0 3.558.502 5.814a2.994 2.994 0 0 0 2.112 2.112C4.87 20.5 12 20.5 12 20.5s7.13 0 9.386-.574a2.994 2.994 0 0 0 2.112-2.112C24 15.558 24 12 24 12s0-3.558-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                </svg>
-                <span className="sr-only">YouTube</span>
-              </a>
-              <a
-                href="#"
-                aria-label="LinkedIn"
-                className="rounded-full bg-gray-100 border border-gray-200 shadow-sm transition-colors duration-200 p-2 group hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
-              >
-                <svg
-                  className="w-6 h-6 text-gray-700 group-hover:text-black transition-colors"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.327-.027-3.037-1.849-3.037-1.851 0-2.132 1.445-2.132 2.939v5.667H9.358V9h3.414v1.561h.049c.476-.899 1.637-1.849 3.37-1.849 3.602 0 4.267 2.368 4.267 5.455v6.285zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.119 20.452H3.554V9h3.565v11.452zM22.225 0H1.771C.792 0 0 .771 0 1.723v20.549C0 23.229.792 24 1.771 24h20.451C23.2 24 24 23.229 24 22.271V1.723C24 .771 23.2 0 22.225 0z" />
-                </svg>
-                <span className="sr-only">LinkedIn</span>
-              </a>
-            </div>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-2">Links</h4>
-            <ul className="space-y-1">
-              <li>
-                <a href="#">Home</a>
-              </li>
-              <li>
-                <a href="#">Services</a>
-              </li>
-              <li>
-                <a href="#">Support</a>
-              </li>
-              <li>
-                <a href="#">Contact</a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-2">Get Involved</h4>
-            <ul className="space-y-1">
-              <li>
-                <a href="#">Volunteer</a>
-              </li>
-              <li>
-                <a href="#">Donate</a>
-              </li>
-              <li>
-                <a href="#">Register</a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-2">Legal</h4>
-            <ul className="space-y-1">
-              <li>
-                <a href="#">Privacy Policy</a>
-              </li>
-              <li>
-                <a href="#">Terms of Service</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </footer>
+<footer className="bg-white border-t py-10 px-6">
+  <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+    {/* Contact + Socials */}
+    <div>
+      <h4 className="text-lg font-semibold text-[#1B69C1] mb-3">Contact</h4>
+      <p className="mb-1">info@merrymeals.org</p>
+      <p className="mb-4">+123 456 7890</p>
+      <div className="flex gap-4">
+        <a href="https://www.facebook.com/merrymeals" target="_blank" rel="noopener noreferrer">
+          <Facebook className="w-5 h-5 text-[#1B69C1] hover:scale-110 transition" />
+        </a>
+        <a href="https://www.instagram.com/merrymeals" target="_blank" rel="noopener noreferrer">
+          <Instagram className="w-5 h-5 text-[#1B69C1] hover:scale-110 transition" />
+        </a>
+        <a href="https://www.youtube.com/@merrymeals" target="_blank" rel="noopener noreferrer">
+          <Youtube className="w-5 h-5 text-[#1B69C1] hover:scale-110 transition" />
+        </a>
+        <a href="https://www.linkedin.com/company/merrymeals" target="_blank" rel="noopener noreferrer">
+          <Linkedin className="w-5 h-5 text-[#1B69C1] hover:scale-110 transition" />
+        </a>
+      </div>
+    </div>
+
+    {/* Quick Links */}
+<div>
+  <h4 className="text-lg font-semibold text-[#1B69C1] mb-3">Quick Links</h4>
+  <ul className="space-y-2">
+    <li><a href="/" className="hover:underline">Home</a></li>
+    <li><a href="/services" className="hover:underline">Services</a></li>
+    <li><a href="/contact#support" className="hover:underline">Support</a></li>
+    <li><a href="/contact" className="hover:underline">Contact</a></li>
+  </ul>
+</div>
+
+
+    {/* Get Involved */}
+    <div>
+      <h4 className="text-lg font-semibold text-[#1B69C1] mb-3">Get Involved</h4>
+      <ul className="space-y-2">
+        <li><a href="/volunteer" className="hover:underline">Volunteer</a></li>
+        <li><a href="/donate" className="hover:underline">Donate</a></li>
+        <li><a href="/register" className="hover:underline">Register</a></li>
+      </ul>
+    </div>
+
+    {/* Legal */}
+    <div>
+      <h4 className="text-lg font-semibold text-[#1B69C1] mb-3">Legal</h4>
+      <ul className="space-y-2">
+        <li><a href="/privacy-policy" className="hover:underline">Privacy Policy</a></li>
+        <li><a href="/terms" className="hover:underline">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+
+  {/* Bottom Strip */}
+  <div className="border-t mt-10 pt-4 text-center text-xs text-gray-500">
+    <p>&copy; {new Date().getFullYear()} MerryMeals. All rights reserved.</p>
+  </div>
+</footer>
     </div>
   );
 };

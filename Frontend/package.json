@@ -15,6 +15,7 @@
     "axios": "^1.10.0",
     "embla-carousel-react": "^8.6.0",
     "isbot": "^5.1.27",
+    "lucide-react": "^0.535.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-responsive-carousel": "^3.2.23",
