@@ -19,7 +19,7 @@ public class DonationServiceImpl implements DonationService {
 
     @Override
     public Donation createDonation(Donation donation) {
-        return donationRepository.save(donation); // TODO: Use DTO + validation
+        return donationRepository.save(donation);
     }
 
     @Override
@@ -39,7 +39,11 @@ public class DonationServiceImpl implements DonationService {
                     donation.setAmount(updatedDonation.getAmount());
                     donation.setDate(updatedDonation.getDate());
                     donation.setMethod(updatedDonation.getMethod());
-                    donation.setDonor(updatedDonation.getDonor());
+                    donation.setFullName(updatedDonation.getFullName());
+                    donation.setEmail(updatedDonation.getEmail());
+                    donation.setPhone(updatedDonation.getPhone());
+                    donation.setAddress(updatedDonation.getAddress());
+                    donation.setAnonymous(updatedDonation.getAnonymous());
                     return donationRepository.save(donation);
                 }).orElseThrow(() -> new RuntimeException("Donation not found with id " + id));
     }

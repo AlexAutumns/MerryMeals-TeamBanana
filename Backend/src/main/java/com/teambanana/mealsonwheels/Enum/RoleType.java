@@ -4,7 +4,6 @@ public enum RoleType {
     MEMBER,
     CAREGIVER,
     VOLUNTEER,
-    DONOR,
     SUPPORTER,
     RIDER,
     COOK,          // Covers both cook and chef roles

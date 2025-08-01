@@ -34,17 +34,10 @@ public class RegistrationController {
     public ResponseEntity<User> registerVolunteer(@RequestBody VolunteerRegistrationDto dto) {
         User user = dto.toUser();
 
-        Set<RoleType> roles = new HashSet<>(dto.getRoles()); // ensure mutable
+        Set<RoleType> roles = new HashSet<>(dto.getRoles());
         roles.add(RoleType.VOLUNTEER);
 
         User registeredUser = userService.registerWithRoles(user, roles);
-        return ResponseEntity.ok(registeredUser);
-    }
-
-
-    @PostMapping("/donor")
-    public ResponseEntity<User> registerDonor(@RequestBody User user) {
-        User registeredUser = userService.registerWithRoles(user, Set.of(RoleType.DONOR));
         return ResponseEntity.ok(registeredUser);
     }
 
