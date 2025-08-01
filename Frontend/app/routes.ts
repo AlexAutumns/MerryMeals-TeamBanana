@@ -7,6 +7,9 @@ import {
 
 export default [
   index("routes/home.tsx"),
+  route("/about", "routes/about.tsx"),
+  route("/contact", "routes/contact.tsx"),
+  route("/services", "routes/services.tsx"),
 
   // Role-based routes with layouts
   layout("routes/member/_layout.tsx", [
